@@ -1,0 +1,12 @@
+{% extends "learning_logs/base.html" %}
+ 
+{% block content %}
+    <p><a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a></p>
+    <p>Add a new entry:</p>
+  <!--页面的顶端显示主题让用户知道他是在哪个主题中添加条目,同时可以通过该链接返回到该主题的页面-->
+    <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post'>
+        {% csrf_token %}    <!--防止攻击者利用表单来获得对服务器未经授权的访问;CSRF(跨站点伪造请求)-->
+        {{ form.as_p }}     <!--as_p是让Django以段落的格式渲染所有表单元素，创建表单所需的全部字段-->
+        <button name='submit' >add entry</button>    <!--定义了提交表单的按钮-->
+    </form>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}  <!--描述页面是做什么用的-->
+  <h2>Add a new topic:</h2>
+{% endblock header %}
+
+{% block content %}
+    
+  <form action="{% url 'learning_logs:new_topic' %}" method='post'class="form">
+    {% csrf_token %}    <!--防止攻击者利用表单来获得对服务器未经授权的访问;CSRF(跨站点伪造请求)-->
+    {% bootstrap_form form %}   <!--将bootstrap样式规则应用于各个表单元素-->
+    
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">add topic</button>    <!--添加登录按钮-->
+    {% endbuttons %}
+    
+  </form>
+    
+{% endblock content %}
+ 

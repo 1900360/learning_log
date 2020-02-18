@@ -1,0 +1,13 @@
+{% extends "learning_logs/base.html" %}
+ 
+{% block content %}
+    <p><a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a></p>
+    <p>Edit entry:</p>
+ 
+    <form action="{% url 'learning_logs:edit_entry' entry.id %}" method='post'>
+      {% csrf_token %}      <!--防止攻击者利用表单来获得对服务器未经授权的访问;CSRF(跨站点伪造请求)-->
+      {{ form.as_p }}       <!--as_p是让Django以段落的格式渲染所有表单元素，创建表单所需的全部字段-->
+      <button name='submit' >save changes</button>      <!--定义了的按钮-->
+    </form>
+ 
+{% endblock content %}

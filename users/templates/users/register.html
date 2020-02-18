@@ -1,0 +1,13 @@
+{% extends "learning_logs/base.html" %}
+ 
+{% block content %}
+  <!--提交的表单发送到视图函数中的register-->
+  <form method="post" action="{% url 'users:register' %}">
+    {% csrf_token %}   <!--防止攻击者利用表单来获得对服务器未经授权的访问-->
+    {{ form.as_p}}   <!--as_p让Django以段落格式渲染所有表单元素-->
+ 
+    <button name="submit">register</button>  <!--注册按钮-->
+    <!--自动跳转-->
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
+  </form>
+{% endblock content%}

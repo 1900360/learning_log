@@ -1,0 +1,69 @@
+
+
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Learning Log</title>
+
+    {% bootstrap_css %}    <!--让Django包含所有的bootstrap样式文件，启用交互式系行为-->
+    {% bootstrap_javascript %}
+
+  </head>
+  
+  <body>
+
+    <!--静态导航栏 -->
+    <nav class="navbar navbar-default navbar-static-top">   <!--nav表示页面的导航连接部分，选择器决定了特定样式将应用于哪些元素-->
+      <div class="container">
+          
+        <div class="navbar-header">
+        <!--折叠导航栏-->
+          <button type="button" class="navbar-toggle collapsed"    
+              data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+          </button>
+          <a class="navbar-brand" href="{% url 'learning_logs:index' %}">    <!--在导航栏的最左边显示项目名并设置为回到主页的链接-->
+              Learning Log</a>
+        </div>
+        
+        <div id="navbar" class="navbar-collapse collapse">   <!--让用户能够在网站中导航的链接-->
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'learning_logs:topics' %}">Topics</a></li>
+          </ul>
+          
+          <ul class="nav navbar-nav navbar-right">      <!--登录和注册链接-->
+            {% if user.is_authenticated %}
+              <li><a>hh，{{ user.username }}登录成功了呦.</a></li>
+              <li><a href="{% url 'users:logout' %}">log out</a></li>
+            {% else %}
+              <li><a href="{% url 'users:register' %}">register</a></li>
+              <li><a href="{% url 'users:login' %}">log in</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+        
+      </div>
+    </nav>
+    
+    <div class="container">
+
+      <div class="page-header">
+        {% block header %}{% endblock %}    <!--告诉用户页面信息及操作-->
+      </div>
+      <div>
+        {% block content %}{% endblock %}   <!--content块是一个独立的div,未使用class属性指定样式-->
+      </div>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
+
+        
+  
